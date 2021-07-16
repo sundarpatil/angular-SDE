@@ -1,0 +1,330 @@
+<div class='sed-Details'>
+  <div class='container'>
+    <div class="row">
+      <div class="col1 boldTitleOne">
+        CaseType
+      </div>
+      <div class="col3">
+        <kendo-dropdownlist id="ddlCaseType" [data]="allCaseType" [(ngModel)]="selectedCaseType"
+          (valueChange)="onCaseTypeChange($event)">
+        </kendo-dropdownlist>
+      </div>
+
+      <div class="col20">
+        <button class="k-button" title="Submit" (click)="this.onSubmit()">Submit</button>
+      </div>
+
+    </div>
+  </div>
+  <br>
+  <div class='container'>
+    <div class="row">
+      <div class="col20 borderedList">
+        <kendo-listview id="lstBodySite" [navigable]="true" [data]="sdeBodySite"
+          containerClass="k-d-flex k-flex-col k-flex-nowrap">
+          <ng-template kendoListViewHeaderTemplate>
+            <div class="header title1">Bodysites*</div>
+          </ng-template>
+          <ng-template kendoListViewItemTemplate let-dataItem="dataItem">
+            <div class='container'>
+              <div class='row sed-Details-Row'>
+                <div class='col80' (click)="onBodySiteSelect(dataItem)">{{ dataItem }}</div>
+                <div class='col'>
+                  <button class="addDelete" (click)="onBodySiteDelete(dataItem)">
+                    <span class='k-icon k-i-delete'></span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+          <ng-template kendoListViewFooterTemplate>
+            <div class="footer">
+              <div class='container'>
+                <div class='row sed-Details-Row' *ngIf="showBodySiteDDL">
+                  <div class='col80'>
+                    <kendo-dropdownlist id="ddlBodySite" [data]="remaningBodySite"
+                      (valueChange)="onBodySiteAdd($event)">
+                    </kendo-dropdownlist>
+                  </div>
+                  <div class='col'>
+                  </div>
+                </div>
+                <div class='row sed-Details-Row'>
+                  <div class='col'>
+                    <button class="addButton" id="btnShowAddBodySite"
+                            (click)="onShowBodySiteDDL()">
+                      <span class='k-icon k-i-add'></span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </kendo-listview>
+      </div>
+      <div class="col2">
+      </div>
+      <div class="col20 borderedList">
+        <kendo-listview id="lstSubSite" [navigable]="true" [data]="sdeSubSite"
+          containerClass="k-d-flex k-flex-col k-flex-nowrap">
+          <ng-template kendoListViewHeaderTemplate>
+            <div class="header title1">Subsites</div>
+          </ng-template>
+          <ng-template kendoListViewItemTemplate let-dataItem="dataItem">
+            <div class='container'>
+              <div class='row sed-Details-Row'>
+                <div class='col80' id='tempcolsubsite' (click)="onSubSiteSelect(dataItem)">{{ dataItem }}</div>
+                <div class='col'>
+                  <button class="addDelete" (click)="onSubSiteDelete(dataItem)">
+                    <span class='k-icon k-i-delete'></span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+          <ng-template kendoListViewFooterTemplate>
+            <div class="footer">
+              <div class='container'>
+                <div class='row sed-Details-Row' *ngIf="showSubSiteDDL">
+                  <div class='col80'>
+                    <kendo-dropdownlist id="ddlSubSite" [data]="remaningSubSite" (valueChange)="onSubSiteAdd($event)">
+                    </kendo-dropdownlist>
+                  </div>
+                  <div class='col'>
+
+                  </div>
+                </div>
+                <div class='row sed-Details-Row'>
+                  <div class='col'>
+                    <button class="addButton" id="btnShowAddSubSite"
+                            (click)="onShowSubSiteDDL()">
+                      <span class='k-icon k-i-add'></span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </kendo-listview>
+      </div>
+      <div class="col2">
+      </div>
+      <div class="col40 colpanel">
+        <div class="accordion">
+          <div class="card-header" (click)="showSpecialProcedureCard=!showSpecialProcedureCard">
+            <a class="card-title">Special Procedure </a>
+          </div>
+          <div class="card-body" *ngIf="false">
+            <kendo-listview id="lstSpecialProcedure" [data]="sdeSpecialProcedure"
+              containerClass="k-d-flex k-flex-col k-flex-nowrap">
+              <ng-template kendoListViewHeaderTemplate>
+                <div class="header card-subtitle">
+                  <div class='container'>
+                    <div class="row sed-Details-Row">
+                      <div class="col45">
+                        Special Procedure
+                      </div>
+                      <div class="col45">
+                        CPT
+                      </div>
+                      <div class="col">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+              <ng-template kendoListViewItemTemplate let-dataItem="dataItem">
+                <div class='container'>
+                  <div class='row sed-Details-Row'>
+                    <div class='col45' id='tempcolsp'>{{ dataItem.specialProcedureName }}</div>
+                    <div class='col45' id='tempcolcptsp'>{{ dataItem.cptCode }}</div>
+                    <div class='col'>
+                      <button class="addDelete"
+                                id="btnDeleteSpecialProcedure"
+                                (click)="onSpecialProcedureDelete(dataItem)">
+                          <span class='k-icon k-i-delete'></span>
+                        </button>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+              <ng-template kendoListViewFooterTemplate>
+                <div class="footer">
+                  <div class='container'>
+                    <div class='row sed-Details-Row' *ngIf="showSpecialProcedureDDL">
+                      <div class='col45'>
+                        <kendo-dropdownlist id="ddlSpecialProcedure" [data]="remaningSpecialProcedure"
+                          (valueChange)="onSpecialProcedureAdd($event)">
+                        </kendo-dropdownlist>
+
+                      </div>
+                      <div class='col45'>
+                        <kendo-dropdownlist id="ddlSpecialProcedureCPT" [data]="allCPT"
+                          (valueChange)="onSpecialProcedureCPTAdd($event)">
+                        </kendo-dropdownlist>
+                      </div>
+                      <div class='col'>
+
+                      </div>
+                    </div>
+                    <div class='row sed-Details-Row'>
+                      <div class='col'>
+                        <button class="addButton" id="btnShowAddSpecialProcedure"
+                                  (click)="onShowSpecialProcedureDDL()">
+                            <span class='k-icon k-i-add'></span>
+                          </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+            </kendo-listview>
+          </div>
+
+          <div class="card-header" (click)="shshowDiagnosisCardowMyContainer=!showDiagnosisCard">
+            <a class="card-title"> Diagnosis </a>
+          </div>
+          <div class="card-body" *ngIf="shshowDiagnosisCardowMyContainer">
+            <kendo-listview id="lstDiagnosis" [data]="sdeDiagnosis" containerClass="k-d-flex k-flex-col k-flex-nowrap">
+              <ng-template kendoListViewHeaderTemplate>
+                <div class="header card-subtitle">
+                  <div class='container'>
+                    <div class="row sed-Details-Row">
+                      <div class="col45">
+                        Diagnosis
+                      </div>
+                      <div class="col45">
+                        ICD
+                      </div>
+                      <div class="col">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+              <ng-template kendoListViewItemTemplate let-dataItem="dataItem">
+                <div class='container'>
+                  <div class='row sed-Details-Row' id='temprowdia'>
+                    <div class='col45' id='tempcoldia'>
+                      {{ dataItem.diagnosis }}
+                    </div>
+                    <div class='col45' id='tempcolicddia'>
+                      {{ dataItem.icdCode }}
+                    </div>
+                    <div class='col'>
+                      <button class="addDelete"
+                                id="btnDeleteDiagnosis"
+                                (click)="onDiagnosisDelete(dataItem)">
+                          <span class='k-icon k-i-delete'></span>
+                        </button>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+              <ng-template kendoListViewFooterTemplate>
+                <div class="footer">
+                  <div class='container'>
+                    <div class='row sed-Details-Row' *ngIf="showDiagnosisDDL">
+                      <div class='col45'>
+                        <kendo-dropdownlist id="ddlDiagnosis" [data]="remaningDiagnosis"
+                          (valueChange)="onDiagnosisAdd($event)">
+                        </kendo-dropdownlist>
+
+                      </div>
+                      <div class='col45'>
+                        <kendo-dropdownlist id="ddlDiagnosisICD" [data]="allICD"
+                          (valueChange)="onDiagnosisICDAdd($event)">
+                        </kendo-dropdownlist>
+                      </div>
+                      <div class='col'>
+
+                      </div>
+                    </div>
+                    <div class='row sed-Details-Row'>
+                      <div class='col'>
+                        <button class="addButton" id="btnShowAddDiagnosis"
+                                  (click)="onShowDiagnosisDDL()">
+                            <span class='k-icon k-i-add'></span>
+                          </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+            </kendo-listview>
+          </div>
+
+          <div class="card-header" (click)="showTestsCard=!showTestsCard">
+            <a class="card-title"> Tests </a>
+          </div>
+          <div class="card-body" *ngIf="showTestsCard">
+            <kendo-listview id="lstTests" [data]="sdeTests" containerClass="k-d-flex k-flex-col k-flex-nowrap">
+              <ng-template kendoListViewHeaderTemplate>
+                <div class="header card-subtitle">
+                  <div class='container'>
+                    <div class="row sed-Details-Row">
+                      <div class="col45">
+                        Tests
+                      </div>
+                      <div class="col45">
+                        CPT
+                      </div>
+                      <div class="col">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+              <ng-template kendoListViewItemTemplate let-dataItem="dataItem">
+                <div class='container'>
+                  <div class='row sed-Details-Row' id='temprowtest'>
+                    <div class='col45' id='tempcoltest'>{{ dataItem.genericTestName }}</div>
+                    <div class='col45' id='tempcolcpttest'>{{ dataItem.cptTest}}</div>
+                    <div class='col'>
+                      <button class="addDelete"
+                                id="btnDeleteTests"
+                                (click)="onTestsDelete(dataItem)">
+                          <span class='k-icon k-i-delete'></span>
+                        </button>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+              <ng-template kendoListViewFooterTemplate>
+                <div class="footer">
+                  <div class='container'>
+                    <div class='row sed-Details-Row' *ngIf="showTestsDDL">
+                      <div class='col45'>
+                        <kendo-dropdownlist id="ddlTests" [data]="remaningTests" [textField]="'genericTestName'"
+                          [valueField]="'idGenericTest'" (valueChange)="onTestsAdd($event)">
+                        </kendo-dropdownlist>
+
+                      </div>
+                      <div class='col45'>
+                        <kendo-dropdownlist id="ddlTestsCPT" [data]="allCPT" (valueChange)="onTestsCPTAdd($event)">
+                        </kendo-dropdownlist>
+                      </div>
+                      <div class='col'>
+
+                      </div>
+                    </div>
+                    <div class='row sed-Details-Row'>
+                      <div class='col'>
+                        <button class="addButton" id="btnShowAddTests"
+                                  (click)="onShowTestsDDL()">
+                            <span class='k-icon k-i-add'></span>
+                          </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+              </ng-template>
+            </kendo-listview>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
